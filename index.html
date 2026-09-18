@@ -328,7 +328,7 @@
             <div class="glass-card p-6 md:p-8 border-t-4 border-t-amber-400">
                 <h3 class="font-display font-bold text-base text-amber-400 mb-4 flex items-center gap-2"><span>⚡</span> Automated Cascading Waterfall Logic</h3>
                 <div class="mermaid flex justify-center">
-                    graph TD
+                    graph LR
                     classDef rootNode fill:#0ea5e9,stroke:#38bdf8,stroke-width:2px,color:#fff,font-weight:bold;
                     classDef conditionNode fill:#d97706,stroke:#fbbf24,stroke-width:2px,color:#fff,font-weight:bold;
                     classDef runwayNode fill:#06b6d4,stroke:#67e8f9,stroke-width:2px,color:#fff,font-weight:bold;
@@ -663,7 +663,7 @@
                     <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 text-[11px] font-bold border border-emerald-500/30">AUDIT PROOF</span>
                 </div>
                 <div class="mermaid flex justify-center">
-                    graph TD
+                    graph LR
                     A["USD Prop Firm Remittance"] --> B["Axis Bank Inward Wire"]
                     B -->|"Purpose Code P0802"| C{"GST Layer"}
                     C -->|"Digital LUT + e-FIRC"| D["0% GST Zero-Rated Export"]
@@ -749,7 +749,7 @@
                     <span class="px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-300 text-[11px] font-bold border border-blue-500/30">100% FREE</span>
                 </div>
                 <div class="mermaid flex justify-center">
-                    graph TD
+                    graph LR
                     A["udyamregistration.gov.in"] --> B["Enter Aadhaar Number & Name"]
                     B -->|"OTP 1 Validation"| C["Enter PAN Number & Select 'Proprietary'"]
                     C --> D["PAN Validated via Income Tax Database"]
