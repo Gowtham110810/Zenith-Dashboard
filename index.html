@@ -184,6 +184,36 @@
     </style>
 </head>
 <body class="min-h-screen mobile-nav-pad">
+    <!-- PASSWORD LOCK OVERLAY -->
+    <div id="auth-lock" style="position: fixed; inset: 0; background: #030712; z-index: 99999; display: flex; align-items: center; justify-content: center; font-family: 'Plus Jakarta Sans', sans-serif;">
+        <div style="background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.12); padding: 2.5rem; border-radius: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); width: 100%; max-width: 400px; text-align: center;">
+            <div style="width: 3rem; height: 3rem; border-radius: 1rem; background: linear-gradient(to top right, #22d3ee, #6366f1); display: flex; align-items: center; justify-content: center; font-weight: 900; color: white; font-size: 1.25rem; margin: 0 auto 1.25rem; box-shadow: 0 0 20px rgba(34,211,238,0.4);">Z</div>
+            <h2 style="color: white; font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5phosphor;">Project Zenith</h2>
+            <p style="color: #94a3b8; font-size: 0.75rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Restricted Command Center</p>
+            <input type="password" id="auth-pass" placeholder="Enter Access Passcode" style="width: 100%; background: rgba(3, 7, 18, 0.85); border: 1px solid rgba(255, 255, 255, 0.15); color: white; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; outline: none; margin-bottom: 1rem; text-align: center;" />
+            <button onclick="verifyPasscode()" style="width: 100%; background: linear-gradient(to right, #0284c7, #4f46e5); color: white; font-weight: 700; padding: 0.75rem; border-radius: 0.75rem; font-size: 0.875rem; border: none; cursor: pointer; box-shadow: 0 0 15px rgba(37,99,235,0.4);">Unlock Dashboard</button>
+            <p id="auth-error" style="color: #f43f5e; font-size: 0.75rem; margin-top: 0.75rem; display: none;">Invalid Passcode. Access Denied.</p>
+        </div>
+    </div>
+    
+    <script>
+        function verifyPasscode() {
+            const input = document.getElementById('auth-pass').value;
+            // CHANGE "YourSecurePin123" TO WHATEVER PASSCODE YOU PREFER
+            if (input === "200811") {
+                document.getElementById('auth-lock').style.display = 'none';
+                sessionStorage.setItem('zenith_unlocked', 'true');
+            } else {
+                document.getElementById('auth-error').style.display = 'block';
+            }
+        }
+        // Auto-unlock if already entered during this browser session
+        window.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('zenith_unlocked') === 'true') {
+                document.getElementById('auth-lock').style.display = 'none';
+            }
+        });
+    </script>
 
     <!-- DESKTOP TOP NAVIGATION BAR -->
     <nav class="hidden md:flex sticky top-0 z-50 nav-blur px-6 lg:px-8 py-3.5 items-center justify-between">
