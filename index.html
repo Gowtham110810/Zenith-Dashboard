@@ -75,144 +75,85 @@
             overflow-x: hidden;
         }
 
-        /* Scroll Reveal Animations */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Animated Flow Lines for CSS Charts */
-        .flow-line {
-            stroke-dasharray: 8 8;
-            animation: flow 1s linear infinite;
-        }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .flow-line { stroke-dasharray: 8 8; animation: flow 1s linear infinite; }
 
         .glass-card {
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 1.25rem;
-            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6);
-            transition: all 0.3s ease;
+            background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.25rem; box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6); transition: all 0.3s ease;
         }
-        .glass-card:hover {
-            border-color: rgba(255, 255, 255, 0.18);
-            box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8);
-        }
+        .glass-card:hover { border-color: rgba(255, 255, 255, 0.18); box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8); }
 
-        .nav-blur {
-            background: rgba(3, 7, 18, 0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
+        .nav-blur { background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
 
         .section-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.35rem 0.9rem;
-            border-radius: 9999px;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            border-width: 1px;
-            backdrop-filter: blur(10px);
+            display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.9rem;
+            border-radius: 9999px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+            text-transform: uppercase; border-width: 1px; backdrop-filter: blur(10px);
         }
 
-        .micro-input {
-            background: rgba(15, 23, 42, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #f8fafc;
-            transition: all 0.2s ease;
-        }
-        .micro-input:focus {
-            border-color: #22d3ee;
-            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.2);
-            outline: none;
-        }
+        .micro-input { background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(255, 255, 255, 0.12); color: #f8fafc; transition: all 0.2s ease; }
+        .micro-input:focus { border-color: #22d3ee; box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.2); outline: none; }
 
         .task-checkbox {
-            appearance: none;
-            width: 1.25rem; height: 1.25rem;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 0.35rem; background: transparent;
-            cursor: pointer; position: relative; transition: all 0.2s ease;
-            flex-shrink: 0;
+            appearance: none; width: 1.25rem; height: 1.25rem; border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 0.35rem; background: transparent; cursor: pointer; position: relative; transition: all 0.2s ease; flex-shrink: 0;
         }
-        .task-checkbox:checked {
-            background: #10b981; border-color: #10b981;
-            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
-        }
+        .task-checkbox:checked { background: #10b981; border-color: #10b981; box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
         .task-checkbox:checked::after {
-            content: ''; position: absolute; left: 5px; top: 2px;
-            width: 5px; height: 10px; border: solid white;
+            content: ''; position: absolute; left: 5px; top: 2px; width: 5px; height: 10px; border: solid white;
             border-width: 0 2px 2px 0; transform: rotate(45deg);
         }
         .task-row.completed .task-text { text-decoration: line-through; color: #64748b; }
 
         .timeline-track::before {
-            content: ''; position: absolute; top: 0; bottom: 0; left: 50%;
-            width: 4px; margin-left: -2px;
-            background: linear-gradient(to bottom, #22d3ee, #3b82f6, #a855f7, #10b981);
-            border-radius: 4px; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; margin-left: -2px;
+            background: linear-gradient(to bottom, #22d3ee, #3b82f6, #a855f7, #10b981); border-radius: 4px; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
         }
         @media (max-width: 768px) {
             .timeline-track::before { left: 2rem; }
             .timeline-node { left: 2rem !important; }
-            .timeline-card-left, .timeline-card-right {
-                width: calc(100% - 4.5rem) !important; margin-left: 4.5rem !important; text-align: left !important;
-            }
+            .timeline-card-left, .timeline-card-right { width: calc(100% - 4.5rem) !important; margin-left: 4.5rem !important; text-align: left !important; }
             .mobile-nav-pad { padding-bottom: 90px; }
         }
         .timeline-node {
-            position: absolute; left: 50%; transform: translateX(-50%);
-            width: 22px; height: 22px; border-radius: 50%; background: #030712; border: 4px solid; z-index: 10; transition: all 0.3s;
+            position: absolute; left: 50%; transform: translateX(-50%); width: 22px; height: 22px; border-radius: 50%; background: #030712; border: 4px solid; z-index: 10; transition: all 0.3s;
         }
         .timeline-node:hover { transform: translateX(-50%) scale(1.3); }
 
-        /* Custom Scrollbar for Infinite Journal */
-        .journal-scroll::-webkit-scrollbar { width: 8px; }
+        .journal-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
         .journal-scroll::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); border-radius: 4px; }
         .journal-scroll::-webkit-scrollbar-thumb { background: rgba(59, 130, 246, 0.5); border-radius: 4px; }
         .journal-scroll::-webkit-scrollbar-thumb:hover { background: rgba(59, 130, 246, 0.8); }
     </style>
 </head>
 <body class="min-h-screen mobile-nav-pad">
+
     <!-- PASSWORD LOCK OVERLAY -->
     <div id="auth-lock" style="position: fixed; inset: 0; background: #030712; z-index: 99999; display: flex; align-items: center; justify-content: center; font-family: 'Plus Jakarta Sans', sans-serif;">
-        <div style="background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.12); padding: 2.5rem; border-radius: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); width: 100%; max-width: 400px; text-align: center;">
+        <div style="background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.12); padding: 2.5rem; border-radius: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); width: 100%; max-width: 400px; text-align: center; margin: 1rem;">
             <div style="width: 3rem; height: 3rem; border-radius: 1rem; background: linear-gradient(to top right, #22d3ee, #6366f1); display: flex; align-items: center; justify-content: center; font-weight: 900; color: white; font-size: 1.25rem; margin: 0 auto 1.25rem; box-shadow: 0 0 20px rgba(34,211,238,0.4);">Z</div>
-            <h2 style="color: white; font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5phosphor;">Project Zenith</h2>
+            <h2 style="color: white; font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem;">Project Zenith</h2>
             <p style="color: #94a3b8; font-size: 0.75rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Restricted Command Center</p>
             <input type="password" id="auth-pass" placeholder="Enter Access Passcode" style="width: 100%; background: rgba(3, 7, 18, 0.85); border: 1px solid rgba(255, 255, 255, 0.15); color: white; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; outline: none; margin-bottom: 1rem; text-align: center;" />
             <button onclick="verifyPasscode()" style="width: 100%; background: linear-gradient(to right, #0284c7, #4f46e5); color: white; font-weight: 700; padding: 0.75rem; border-radius: 0.75rem; font-size: 0.875rem; border: none; cursor: pointer; box-shadow: 0 0 15px rgba(37,99,235,0.4);">Unlock Dashboard</button>
             <p id="auth-error" style="color: #f43f5e; font-size: 0.75rem; margin-top: 0.75rem; display: none;">Invalid Passcode. Access Denied.</p>
         </div>
     </div>
-    
     <script>
         function verifyPasscode() {
             const input = document.getElementById('auth-pass').value;
-            // CHANGE "YourSecurePin123" TO WHATEVER PASSCODE YOU PREFER
-            if (input === "200811") {
+            
+            // PUT YOUR CUSTOM PIN HERE:
+            if (input === "YourSecurePin123") {
+                
                 document.getElementById('auth-lock').style.display = 'none';
                 sessionStorage.setItem('zenith_unlocked', 'true');
             } else {
                 document.getElementById('auth-error').style.display = 'block';
             }
         }
-        // Auto-unlock if already entered during this browser session
-        window.addEventListener('DOMContentLoaded', () => {
-            if (sessionStorage.getItem('zenith_unlocked') === 'true') {
-                document.getElementById('auth-lock').style.display = 'none';
-            }
-        });
     </script>
 
     <!-- DESKTOP TOP NAVIGATION BAR -->
@@ -383,7 +324,7 @@
                 <p class="text-slate-400 text-sm mt-1">The algorithmic journey of capital distribution, tax shielding, and multi-bank routing.</p>
             </div>
 
-            <!-- Visual Flowchart (ESCAPED FOR MERMAID 12.0.0) -->
+            <!-- Visual Flowchart -->
             <div class="glass-card p-6 md:p-8 border-t-4 border-t-amber-400">
                 <h3 class="font-display font-bold text-base text-amber-400 mb-4 flex items-center gap-2"><span>⚡</span> Automated Cascading Waterfall Logic</h3>
                 <div class="mermaid flex justify-center">
@@ -570,7 +511,7 @@
                 <p class="text-slate-400 text-sm mt-1">Exact banking workflows, outward/inward wire routing, purpose codes, forex negotiation scripts, and account segregation.</p>
             </div>
 
-            <!-- Complete Ecosystem Flow Diagram (ESCAPED FOR MERMAID 12.0.0) -->
+            <!-- Complete Ecosystem Flow Diagram -->
             <div class="glass-card p-6 md:p-8 border-t-4 border-t-purple-500">
                 <h3 class="font-display font-bold text-base text-purple-400 mb-4 flex items-center gap-2"><span>⚡</span> Institutional Bank Account Interconnection Map</h3>
                 <div class="mermaid flex justify-center">
@@ -715,7 +656,7 @@
                 <h2 class="text-2xl md:text-3xl font-display font-bold text-white flex items-center gap-2"><span>🛡️</span> Tax Architecture: Section 44ADA & 0% GST Export Shield</h2>
             </div>
 
-            <!-- Mermaid Flowchart (ESCAPED FOR MERMAID 12.0.0) -->
+            <!-- Mermaid Flowchart -->
             <div class="glass-card p-6 md:p-8">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="font-display font-bold text-base text-cyan-400 flex items-center gap-2"><span>⚡</span> Regulatory & Tax Flow Architecture</h3>
@@ -801,7 +742,7 @@
                 <h2 class="text-2xl md:text-3xl font-display font-bold text-white flex items-center gap-2"><span>📋</span> Udyam Registration & Master NIC Code Blueprint</h2>
             </div>
 
-            <!-- Udyam Mermaid Flowchart (ESCAPED FOR MERMAID 12.0.0) -->
+            <!-- Udyam Mermaid Flowchart -->
             <div class="glass-card p-6 md:p-8">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="font-display font-bold text-base text-blue-400 flex items-center gap-2"><span>⚡</span> 10-Minute Udyam Digital Registration Workflow</h3>
@@ -1062,59 +1003,95 @@
         </section>
 
         <!-- ========================================== -->
-        <!-- MODULE 09: UNLIMITED TRADING JOURNAL -->
+        <!-- MODULE 09: ENHANCED ANALYTICS JOURNAL -->
         <!-- ========================================== -->
         <section id="section-journal" class="space-y-6 reveal">
             <div class="flex items-center justify-between">
                 <div>
                     <div class="section-badge border-blue-500/30 bg-blue-500/10 text-blue-300 mb-1">Module 09</div>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-white flex items-center gap-2"><span>📝</span> Live Execution Journal</h2>
-                    <p class="text-slate-400 text-sm mt-1">Dynamic, unmetered log. Auto-syncs to your browser memory and Firebase cloud database instantly.</p>
-                </div>
-                <div class="bg-blue-900/20 border border-blue-500/30 px-4 py-2 rounded-xl text-center">
-                    <span class="block text-[10px] text-blue-300 font-bold uppercase tracking-wider">Total Stored</span>
-                    <span id="journal-count" class="text-xl font-mono font-bold text-white">0</span>
+                    <h2 class="text-2xl md:text-3xl font-display font-bold text-white flex items-center gap-2"><span>📝</span> Advanced Analytics Journal</h2>
+                    <p class="text-slate-400 text-sm mt-1">Dynamic trade logging with automatic R-Multiple tracking, Win Rate, and Rule Adherence analysis.</p>
                 </div>
             </div>
 
-            <div class="glass-card p-6 border-t-4 border-t-blue-500">
-                
+            <!-- ANALYTICS DASHBOARD CARDS -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-2">
+                <div class="glass-card p-4 border-t-4 border-t-cyan-400 relative overflow-hidden">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Win Rate</span>
+                    <span id="stat-winrate" class="block text-3xl font-mono font-black text-white mt-1">0%</span>
+                </div>
+                <div class="glass-card p-4 border-t-4 border-t-emerald-400 relative overflow-hidden">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total R-Multiple</span>
+                    <span id="stat-rmultiple" class="block text-3xl font-mono font-black text-emerald-400 mt-1">0R</span>
+                </div>
+                <div class="glass-card p-4 border-t-4 border-t-purple-400 relative overflow-hidden">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Rule Adherence</span>
+                    <span id="stat-rules" class="block text-3xl font-mono font-black text-purple-400 mt-1">0%</span>
+                </div>
+                <div class="glass-card p-4 border-t-4 border-t-amber-400 relative overflow-hidden">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Executions</span>
+                    <span id="stat-total" class="block text-3xl font-mono font-black text-amber-400 mt-1">0</span>
+                </div>
+            </div>
+
+            <!-- R-MULTIPLE TRAJECTORY CHART -->
+            <div class="glass-card p-5 border-t-4 border-t-blue-500 h-64 relative">
+                <span class="absolute top-4 left-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest z-10">R-Multiple Trajectory</span>
+                <canvas id="rMultipleChart" class="mt-4"></canvas>
+            </div>
+
+            <div class="glass-card p-6">
                 <!-- Input Form -->
-                <div class="grid grid-cols-2 md:grid-cols-7 gap-3 mb-6 bg-slate-900/50 p-4 rounded-xl border border-slate-800">
-                    <div class="col-span-2 md:col-span-1">
-                        <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Date</label>
-                        <input type="date" id="j-date" class="w-full micro-input rounded px-3 py-2 text-xs font-mono">
+                <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800 mb-6 space-y-3">
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                        <div class="col-span-1">
+                            <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Date</label>
+                            <input type="date" id="j-date" class="w-full micro-input rounded px-3 py-2 text-xs font-mono">
+                        </div>
+                        <div class="col-span-1">
+                            <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Asset</label>
+                            <input type="text" id="j-pair" placeholder="XAUUSD" class="w-full micro-input rounded px-3 py-2 text-xs font-mono uppercase">
+                        </div>
+                        <div class="col-span-1">
+                            <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Direction</label>
+                            <select id="j-dir" class="w-full micro-input rounded px-3 py-2 text-xs font-bold">
+                                <option value="Long">Long</option>
+                                <option value="Short">Short</option>
+                            </select>
+                        </div>
+                        <div class="col-span-1">
+                            <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Lots</label>
+                            <input type="number" id="j-size" placeholder="0.02" step="0.01" class="w-full micro-input rounded px-3 py-2 text-xs font-mono">
+                        </div>
+                        <div class="col-span-1">
+                            <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Setup</label>
+                            <select id="j-setup" class="w-full micro-input rounded px-3 py-2 text-xs font-bold">
+                                <option value="1m Break/Retest">1m B&R</option>
+                                <option value="15m Structural">15m Struct</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-span-1">
-                        <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Asset</label>
-                        <input type="text" id="j-pair" placeholder="XAUUSD" class="w-full micro-input rounded px-3 py-2 text-xs font-mono uppercase">
-                    </div>
-                    <div class="col-span-1">
-                        <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Direction</label>
-                        <select id="j-dir" class="w-full micro-input rounded px-3 py-2 text-xs font-bold">
-                            <option value="Long">Long</option>
-                            <option value="Short">Short</option>
-                        </select>
-                    </div>
-                    <div class="col-span-1">
-                        <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Lots</label>
-                        <input type="number" id="j-size" placeholder="0.02" step="0.01" class="w-full micro-input rounded px-3 py-2 text-xs font-mono">
-                    </div>
-                    <div class="col-span-1">
-                        <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Setup</label>
-                        <select id="j-setup" class="w-full micro-input rounded px-3 py-2 text-xs font-bold">
-                            <option value="1m Break/Retest">1m B&R</option>
-                            <option value="15m Structural">15m Struct</option>
-                        </select>
-                    </div>
-                    <div class="col-span-1">
-                        <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">PnL ($)</label>
-                        <input type="number" id="j-pnl" placeholder="45.50" step="0.01" class="w-full micro-input rounded px-3 py-2 text-xs font-mono">
-                    </div>
-                    <div class="col-span-2 md:col-span-1 flex items-end">
-                        <button onclick="logTrade()" class="w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded px-3 py-2.5 transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)]">
-                            Log Trade
-                        </button>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 items-end">
+                        <div class="col-span-1">
+                            <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Risk ($)</label>
+                            <input type="number" id="j-risk" value="25" step="1" class="w-full micro-input rounded px-3 py-2 text-xs font-mono">
+                        </div>
+                        <div class="col-span-1">
+                            <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">PnL ($)</label>
+                            <input type="number" id="j-pnl" placeholder="50.00" step="0.01" class="w-full micro-input rounded px-3 py-2 text-xs font-mono">
+                        </div>
+                        <div class="col-span-1">
+                            <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Followed Rules?</label>
+                            <select id="j-rules" class="w-full micro-input rounded px-3 py-2 text-xs font-bold text-emerald-400">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="col-span-2 md:col-span-1 flex items-end">
+                            <button onclick="logTrade()" class="w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded px-3 py-2.5 transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)]">
+                                Log Trade
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -1123,13 +1100,15 @@
                     <table class="w-full text-left text-xs whitespace-nowrap">
                         <thead class="sticky top-0 bg-slate-800/90 backdrop-blur z-10 text-slate-300 uppercase tracking-wider font-bold">
                             <tr>
-                                <th class="px-5 py-3 border-b border-slate-700">Date</th>
-                                <th class="px-5 py-3 border-b border-slate-700">Asset</th>
-                                <th class="px-5 py-3 border-b border-slate-700">Direction</th>
-                                <th class="px-5 py-3 border-b border-slate-700">Lots</th>
-                                <th class="px-5 py-3 border-b border-slate-700">Setup</th>
-                                <th class="px-5 py-3 border-b border-slate-700">Net PnL ($)</th>
-                                <th class="px-5 py-3 border-b border-slate-700 text-right">Remove</th>
+                                <th class="px-4 py-3 border-b border-slate-700">Date</th>
+                                <th class="px-4 py-3 border-b border-slate-700">Asset</th>
+                                <th class="px-4 py-3 border-b border-slate-700">Direction</th>
+                                <th class="px-4 py-3 border-b border-slate-700">Setup</th>
+                                <th class="px-4 py-3 border-b border-slate-700">Risk ($)</th>
+                                <th class="px-4 py-3 border-b border-slate-700">Net PnL ($)</th>
+                                <th class="px-4 py-3 border-b border-slate-700">R-Mult</th>
+                                <th class="px-4 py-3 border-b border-slate-700">Rules</th>
+                                <th class="px-4 py-3 border-b border-slate-700 text-right">Del</th>
                             </tr>
                         </thead>
                         <tbody id="journal-tbody" class="divide-y divide-slate-800/60 font-medium">
@@ -1184,19 +1163,20 @@
     <script>
         // --- 0. INITIALIZE FIREBASE CLOUD SYNC ---
         // TODO: PASTE YOUR FIREBASE CONFIG KEYS HERE
-        const firebaseConfig = {
-         apiKey: "AIzaSyDaHhuTySiLujmxvVAAQWiBn1OVN8b1_ug",
-         authDomain: "project-zenith-e889c.firebaseapp.com",
-         projectId: "project-zenith-e889c",
-         storageBucket: "project-zenith-e889c.firebasestorage.app",
-         messagingSenderId: "218097311363",
-         appId: "1:218097311363:web:e2161cb4f02f9198ea45b6",
-         measurementId: "G-BE09JGWPDX"
-  };
+       const firebaseConfig = {
+           apiKey: "AIzaSyDaHhuTySiLujmxvVAAQWiBn1OVN8b1_ug",
+           authDomain: "project-zenith-e889c.firebaseapp.com",
+           projectId: "project-zenith-e889c",
+           storageBucket: "project-zenith-e889c.firebasestorage.app",
+           messagingSenderId: "218097311363",
+           appId: "1:218097311363:web:e2161cb4f02f9198ea45b6",
+           measurementId: "G-BE09JGWPDX"
+        };
         
         let db = null;
         let trackerRef = null;
         let tradesCollection = null;
+        let rChart = null; // Global Chart Variable
         
         try {
             if(firebaseConfig.apiKey !== "YOUR_API_KEY") {
@@ -1280,7 +1260,7 @@
         [inUsd, inAviation, inForex, inMargin].forEach(el => el.addEventListener('input', runCalculator));
         toggleRunway.addEventListener('change', runCalculator);
 
-        // --- 3. UNLIMITED TRADE JOURNAL ENGINE ---
+        // --- 3. UNLIMITED TRADE JOURNAL ENGINE WITH ANALYTICS ---
         let tradesArray = [];
 
         if (localStorage.getItem('zenith_trades')) {
@@ -1303,6 +1283,9 @@
             const dirVal = document.getElementById('j-dir').value;
             const sizeVal = parseFloat(document.getElementById('j-size').value) || 0;
             const setupVal = document.getElementById('j-setup').value;
+            
+            const riskVal = parseFloat(document.getElementById('j-risk').value) || 25;
+            const rulesVal = document.getElementById('j-rules').value;
             const pnlVal = parseFloat(document.getElementById('j-pnl').value) || 0;
             
             if(!dateStr) { alert("Please select a date."); return; }
@@ -1315,7 +1298,9 @@
                 direction: dirVal,
                 lots: sizeVal,
                 setup: setupVal,
-                pnl: pnlVal
+                risk: riskVal,
+                pnl: pnlVal,
+                rules: rulesVal
             };
 
             tradesArray.unshift(newTrade);
@@ -1338,36 +1323,80 @@
 
         function renderTrades() {
             const tbody = document.getElementById('journal-tbody');
-            document.getElementById('journal-count').textContent = tradesArray.length;
             tbody.innerHTML = '';
             
-            if(tradesArray.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="px-5 py-8 text-center text-slate-500 italic">No trades logged yet. Engine is empty.</td></tr>`;
-                return;
+            let wins = 0;
+            let totalR = 0;
+            let rulesFollowed = 0;
+            const total = tradesArray.length;
+
+            if(total === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" class="px-5 py-8 text-center text-slate-500 italic">No trades logged yet. Engine is empty.</td></tr>`;
+            } else {
+                tradesArray.forEach(t => {
+                    const isWin = t.pnl > 0;
+                    const isLong = t.direction === 'Long';
+                    const risk = t.risk || 25; // fallback for older trades
+                    const rValue = (t.pnl / risk);
+                    const rulesStr = t.rules === 'No' ? '<span class="text-red-400 font-bold">No</span>' : '<span class="text-emerald-400 font-bold">Yes</span>';
+                    
+                    // Stat Calculation
+                    totalR += rValue;
+                    if(isWin) wins++;
+                    if(t.rules !== 'No') rulesFollowed++;
+
+                    const row = document.createElement('tr');
+                    row.className = 'hover:bg-slate-800/40 transition-colors';
+                    row.innerHTML = `
+                        <td class="px-4 py-3 text-slate-300">${t.date}</td>
+                        <td class="px-4 py-3 font-bold text-white">${t.pair}</td>
+                        <td class="px-4 py-3 ${isLong ? 'text-emerald-400' : 'text-red-400'} font-bold">${t.direction}</td>
+                        <td class="px-4 py-3 text-slate-400">${t.setup}</td>
+                        <td class="px-4 py-3 text-slate-400">$${risk}</td>
+                        <td class="px-4 py-3 font-mono font-bold ${isWin ? 'text-emerald-400' : (t.pnl < 0 ? 'text-red-400' : 'text-slate-400')}">
+                            ${isWin ? '+' : ''}$${t.pnl.toFixed(2)}
+                        </td>
+                        <td class="px-4 py-3 font-mono font-bold ${rValue > 0 ? 'text-emerald-400' : (rValue < 0 ? 'text-red-400' : 'text-slate-400')}">
+                            ${rValue > 0 ? '+' : ''}${rValue.toFixed(2)}R
+                        </td>
+                        <td class="px-4 py-3">${rulesStr}</td>
+                        <td class="px-4 py-3 text-right">
+                            <button onclick="deleteTrade('${t.id}')" class="text-slate-500 hover:text-red-400 transition-colors p-1" title="Delete Trade">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
             }
 
-            tradesArray.forEach(t => {
-                const isWin = t.pnl >= 0;
-                const isLong = t.direction === 'Long';
-                const row = document.createElement('tr');
-                row.className = 'hover:bg-slate-800/40 transition-colors';
-                row.innerHTML = `
-                    <td class="px-5 py-3 text-slate-300">${t.date}</td>
-                    <td class="px-5 py-3 font-bold text-white">${t.pair}</td>
-                    <td class="px-5 py-3 ${isLong ? 'text-emerald-400' : 'text-red-400'} font-bold">${t.direction}</td>
-                    <td class="px-5 py-3 text-slate-300">${t.lots}</td>
-                    <td class="px-5 py-3 text-slate-400">${t.setup}</td>
-                    <td class="px-5 py-3 font-mono font-bold ${isWin ? 'text-emerald-400' : 'text-red-400'}">
-                        ${isWin ? '+' : ''}$${t.pnl.toFixed(2)}
-                    </td>
-                    <td class="px-5 py-3 text-right">
-                        <button onclick="deleteTrade('${t.id}')" class="text-slate-500 hover:text-red-400 transition-colors p-1" title="Delete Trade">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
+            // Update Analytics Cards
+            const winRate = total > 0 ? Math.round((wins / total) * 100) : 0;
+            const ruleRate = total > 0 ? Math.round((rulesFollowed / total) * 100) : 0;
+            
+            document.getElementById('stat-winrate').textContent = winRate + '%';
+            document.getElementById('stat-rmultiple').textContent = totalR > 0 ? '+' + totalR.toFixed(2) + 'R' : totalR.toFixed(2) + 'R';
+            document.getElementById('stat-rules').textContent = ruleRate + '%';
+            document.getElementById('stat-total').textContent = total;
+
+            // Update Trajectory Chart
+            if (rChart) {
+                const chronTrades = [...tradesArray].reverse();
+                let runningR = 0;
+                const cData = [0];
+                const cLabels = ['Start'];
+                
+                chronTrades.forEach(t => {
+                    const risk = t.risk || 25;
+                    runningR += (t.pnl / risk);
+                    cData.push(runningR);
+                    cLabels.push(t.date.substring(5)); // Just MM-DD
+                });
+
+                rChart.data.labels = cLabels;
+                rChart.data.datasets[0].data = cData;
+                rChart.update();
+            }
         }
 
         // --- 4. MASTER CHECKLIST DATA ---
@@ -1478,6 +1507,40 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => { 
+            // Unlock check
+            if (sessionStorage.getItem('zenith_unlocked') === 'true') {
+                document.getElementById('auth-lock').style.display = 'none';
+            }
+
+            // Init Trajectory Chart
+            const rCtx = document.getElementById('rMultipleChart').getContext('2d');
+            rChart = new Chart(rCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Start'],
+                    datasets: [{
+                        label: 'Cumulative R',
+                        data: [0],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.3,
+                        pointBackgroundColor: '#030712',
+                        pointBorderColor: '#3b82f6'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { ticks: { color: '#64748b', font: { size: 10 } }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                        y: { ticks: { color: '#64748b', font: { size: 10 } }, grid: { color: 'rgba(255,255,255,0.05)' } }
+                    }
+                }
+            });
+
             document.getElementById('j-date').valueAsDate = new Date(); 
             runCalculator(); 
             loadCloudState(); 
