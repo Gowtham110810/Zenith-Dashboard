@@ -141,13 +141,12 @@
             <p id="auth-error" style="color: #f43f5e; font-size: 0.75rem; margin-top: 0.75rem; display: none;">Invalid Passcode. Access Denied.</p>
         </div>
     </div>
+
     <script>
         function verifyPasscode() {
             const input = document.getElementById('auth-pass').value;
-            
-            // PUT YOUR CUSTOM PIN HERE:
+            // !!! UPDATE THIS PIN BEFORE SAVING !!!
             if (input === "200811") {
-                
                 document.getElementById('auth-lock').style.display = 'none';
                 sessionStorage.setItem('zenith_unlocked', 'true');
             } else {
@@ -1003,14 +1002,14 @@
         </section>
 
         <!-- ========================================== -->
-        <!-- MODULE 09: ENHANCED ANALYTICS JOURNAL -->
+        <!-- MODULE 09: ENHANCED ANALYTICS JOURNAL WITH CHARTS -->
         <!-- ========================================== -->
         <section id="section-journal" class="space-y-6 reveal">
             <div class="flex items-center justify-between">
                 <div>
                     <div class="section-badge border-blue-500/30 bg-blue-500/10 text-blue-300 mb-1">Module 09</div>
                     <h2 class="text-2xl md:text-3xl font-display font-bold text-white flex items-center gap-2"><span>📝</span> Advanced Analytics Journal</h2>
-                    <p class="text-slate-400 text-sm mt-1">Dynamic trade logging with automatic R-Multiple tracking, Win Rate, and Rule Adherence analysis.</p>
+                    <p class="text-slate-400 text-sm mt-1">Dynamic trade logging with automatic R-Multiple tracking, Win Rate, and Chart Cloud Storage.</p>
                 </div>
             </div>
 
@@ -1071,7 +1070,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 items-end">
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 items-end">
                         <div class="col-span-1">
                             <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Risk ($)</label>
                             <input type="number" id="j-risk" value="25" step="1" class="w-full micro-input rounded px-3 py-2 text-xs font-mono">
@@ -1087,8 +1086,12 @@
                                 <option value="No">No</option>
                             </select>
                         </div>
+                        <div class="col-span-1">
+                            <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Screenshot</label>
+                            <input type="file" id="j-image" accept="image/*" class="w-full micro-input rounded px-2 py-1.5 text-xs text-slate-400 file:mr-2 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[10px] file:font-bold file:bg-blue-600 file:text-white cursor-pointer">
+                        </div>
                         <div class="col-span-2 md:col-span-1 flex items-end">
-                            <button onclick="logTrade()" class="w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded px-3 py-2.5 transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)]">
+                            <button id="log-btn" onclick="logTrade()" class="w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded px-3 py-2.5 transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)]">
                                 Log Trade
                             </button>
                         </div>
@@ -1108,6 +1111,7 @@
                                 <th class="px-4 py-3 border-b border-slate-700">Net PnL ($)</th>
                                 <th class="px-4 py-3 border-b border-slate-700">R-Mult</th>
                                 <th class="px-4 py-3 border-b border-slate-700">Rules</th>
+                                <th class="px-4 py-3 border-b border-slate-700">Chart</th>
                                 <th class="px-4 py-3 border-b border-slate-700 text-right">Del</th>
                             </tr>
                         </thead>
@@ -1162,32 +1166,27 @@
     <!-- JAVASCRIPT MASTER ENGINE -->
     <script>
         // --- 0. INITIALIZE FIREBASE CLOUD SYNC ---
-        // TODO: PASTE YOUR FIREBASE CONFIG KEYS HERE
-       const firebaseConfig = {
-           apiKey: "AIzaSyDaHhuTySiLujmxvVAAQWiBn1OVN8b1_ug",
-           authDomain: "project-zenith-e889c.firebaseapp.com",
-           projectId: "project-zenith-e889c",
-           storageBucket: "project-zenith-e889c.firebasestorage.app",
-           messagingSenderId: "218097311363",
-           appId: "1:218097311363:web:e2161cb4f02f9198ea45b6",
-           measurementId: "G-BE09JGWPDX"
+        const firebaseConfig = {
+            apiKey: "AIzaSyDaHhuTySiLujmxvVAAQWiBn1OVN8b1_ug",
+            authDomain: "project-zenith-e889c.firebaseapp.com",
+            projectId: "project-zenith-e889c",
+            storageBucket: "project-zenith-e889c.firebasestorage.app",
+            messagingSenderId: "218097311363",
+            appId: "1:218097311363:web:e2161cb4f02f9198ea45b6",
+            measurementId: "G-BE09JGWPDX"
         };
         
         let db = null;
         let trackerRef = null;
         let tradesCollection = null;
-        let rChart = null; // Global Chart Variable
+        let rChart = null;
         
         try {
-            if(firebaseConfig.apiKey !== "YOUR_API_KEY") {
-                firebase.initializeApp(firebaseConfig);
-                db = firebase.firestore();
-                trackerRef = db.collection('zenith_data').doc('master_tracker');
-                tradesCollection = db.collection('zenith_trades');
-                console.log("Firebase Connected");
-            } else {
-                console.log("Firebase not configured. Running in Local Storage Mode.");
-            }
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.firestore();
+            trackerRef = db.collection('zenith_data').doc('master_tracker');
+            tradesCollection = db.collection('zenith_trades');
+            console.log("Firebase Connected");
         } catch(e) { console.error("Firebase init error", e); }
 
         // --- 1. SCROLL ANIMATION OBSERVER ---
@@ -1260,7 +1259,7 @@
         [inUsd, inAviation, inForex, inMargin].forEach(el => el.addEventListener('input', runCalculator));
         toggleRunway.addEventListener('change', runCalculator);
 
-        // --- 3. UNLIMITED TRADE JOURNAL ENGINE WITH ANALYTICS ---
+        // --- 3. UNLIMITED TRADE JOURNAL ENGINE WITH ANALYTICS & IMAGES ---
         let tradesArray = [];
 
         if (localStorage.getItem('zenith_trades')) {
@@ -1283,34 +1282,73 @@
             const dirVal = document.getElementById('j-dir').value;
             const sizeVal = parseFloat(document.getElementById('j-size').value) || 0;
             const setupVal = document.getElementById('j-setup').value;
-            
             const riskVal = parseFloat(document.getElementById('j-risk').value) || 25;
             const rulesVal = document.getElementById('j-rules').value;
             const pnlVal = parseFloat(document.getElementById('j-pnl').value) || 0;
+            const fileInput = document.getElementById('j-image');
+            const file = fileInput.files[0];
+            const btn = document.getElementById('log-btn');
             
             if(!dateStr) { alert("Please select a date."); return; }
 
-            const newTrade = {
-                id: Date.now().toString(),
-                timestamp: Date.now(),
-                date: dateStr,
-                pair: pairVal.toUpperCase(),
-                direction: dirVal,
-                lots: sizeVal,
-                setup: setupVal,
-                risk: riskVal,
-                pnl: pnlVal,
-                rules: rulesVal
+            const saveTradeData = (imageUrl = null) => {
+                const newTrade = {
+                    id: Date.now().toString(),
+                    timestamp: Date.now(),
+                    date: dateStr,
+                    pair: pairVal.toUpperCase(),
+                    direction: dirVal,
+                    lots: sizeVal,
+                    setup: setupVal,
+                    risk: riskVal,
+                    pnl: pnlVal,
+                    rules: rulesVal,
+                    imgUrl: imageUrl
+                };
+
+                tradesArray.unshift(newTrade);
+                localStorage.setItem('zenith_trades', JSON.stringify(tradesArray));
+                renderTrades();
+
+                if (tradesCollection) tradesCollection.doc(newTrade.id).set(newTrade);
+                
+                document.getElementById('j-pnl').value = '';
+                document.getElementById('j-size').value = '';
+                fileInput.value = '';
+                btn.textContent = "Log Trade";
+                btn.disabled = false;
             };
 
-            tradesArray.unshift(newTrade);
-            localStorage.setItem('zenith_trades', JSON.stringify(tradesArray));
-            renderTrades();
+            const IMGBB_API_KEY = "bc6c9280e5c7b50506d320966aec7fb9";
 
-            if (tradesCollection) tradesCollection.doc(newTrade.id).set(newTrade);
-            
-            document.getElementById('j-pnl').value = '';
-            document.getElementById('j-size').value = '';
+            if (file) {
+                btn.textContent = "Uploading...";
+                btn.disabled = true;
+
+                const formData = new FormData();
+                formData.append('image', file);
+
+                fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        saveTradeData(result.data.url);
+                    } else {
+                        alert("ImgBB Upload Failed: " + result.error.message);
+                        saveTradeData(null);
+                    }
+                })
+                .catch(err => {
+                    console.error("ImgBB Error:", err);
+                    alert("Image upload failed. Check console for details.");
+                    saveTradeData(null);
+                });
+            } else {
+                saveTradeData(null);
+            }
         }
 
         function deleteTrade(id) {
@@ -1331,16 +1369,16 @@
             const total = tradesArray.length;
 
             if(total === 0) {
-                tbody.innerHTML = `<tr><td colspan="9" class="px-5 py-8 text-center text-slate-500 italic">No trades logged yet. Engine is empty.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="10" class="px-5 py-8 text-center text-slate-500 italic">No trades logged yet. Engine is empty.</td></tr>`;
             } else {
                 tradesArray.forEach(t => {
                     const isWin = t.pnl > 0;
                     const isLong = t.direction === 'Long';
-                    const risk = t.risk || 25; // fallback for older trades
+                    const risk = t.risk || 25; 
                     const rValue = (t.pnl / risk);
                     const rulesStr = t.rules === 'No' ? '<span class="text-red-400 font-bold">No</span>' : '<span class="text-emerald-400 font-bold">Yes</span>';
+                    const imgLink = t.imgUrl ? `<a href="${t.imgUrl}" target="_blank" class="text-blue-400 hover:text-cyan-300 transition-colors">🖼️ View</a>` : `<span class="text-slate-600">-</span>`;
                     
-                    // Stat Calculation
                     totalR += rValue;
                     if(isWin) wins++;
                     if(t.rules !== 'No') rulesFollowed++;
@@ -1360,6 +1398,7 @@
                             ${rValue > 0 ? '+' : ''}${rValue.toFixed(2)}R
                         </td>
                         <td class="px-4 py-3">${rulesStr}</td>
+                        <td class="px-4 py-3 font-bold">${imgLink}</td>
                         <td class="px-4 py-3 text-right">
                             <button onclick="deleteTrade('${t.id}')" class="text-slate-500 hover:text-red-400 transition-colors p-1" title="Delete Trade">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
@@ -1370,7 +1409,6 @@
                 });
             }
 
-            // Update Analytics Cards
             const winRate = total > 0 ? Math.round((wins / total) * 100) : 0;
             const ruleRate = total > 0 ? Math.round((rulesFollowed / total) * 100) : 0;
             
@@ -1379,7 +1417,6 @@
             document.getElementById('stat-rules').textContent = ruleRate + '%';
             document.getElementById('stat-total').textContent = total;
 
-            // Update Trajectory Chart
             if (rChart) {
                 const chronTrades = [...tradesArray].reverse();
                 let runningR = 0;
@@ -1390,7 +1427,7 @@
                     const risk = t.risk || 25;
                     runningR += (t.pnl / risk);
                     cData.push(runningR);
-                    cLabels.push(t.date.substring(5)); // Just MM-DD
+                    cLabels.push(t.date.substring(5));
                 });
 
                 rChart.data.labels = cLabels;
@@ -1507,12 +1544,10 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => { 
-            // Unlock check
             if (sessionStorage.getItem('zenith_unlocked') === 'true') {
                 document.getElementById('auth-lock').style.display = 'none';
             }
 
-            // Init Trajectory Chart
             const rCtx = document.getElementById('rMultipleChart').getContext('2d');
             rChart = new Chart(rCtx, {
                 type: 'line',
