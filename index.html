@@ -1055,6 +1055,54 @@
             </div>
 
             <div class="glass-card p-6">
+                <!-- XAUUSD MT5 EXECUTION CALCULATOR -->
+                <div class="bg-slate-900/70 p-5 rounded-2xl border border-red-500/30 mb-6 shadow-[0_0_25px_rgba(239,68,68,0.1)]">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-xs font-bold text-red-400 uppercase tracking-wider flex items-center gap-2">
+                            <span>🎯</span> MT5 Lot Size Engine (XAUUSD • 100oz Contract)
+                        </span>
+                        <span class="text-[10px] font-mono text-slate-400 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700">Auto-Fills Journal</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 items-end">
+                        <div class="col-span-1">
+                            <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Max Risk ($)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-2.5 text-red-400 font-bold text-xs">$</span>
+                                <input type="number" id="calc-risk" value="50" step="1" class="w-full micro-input rounded-lg py-2 pl-6 pr-2 text-xs font-mono text-white font-bold">
+                            </div>
+                        </div>
+                        <div class="col-span-1">
+                            <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Entry Price</label>
+                            <input type="number" id="calc-entry" placeholder="4358.00" step="0.01" class="w-full micro-input rounded-lg px-3 py-2 text-xs font-mono text-white">
+                        </div>
+                        <div class="col-span-1">
+                            <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Stop Loss Price</label>
+                            <input type="number" id="calc-sl" placeholder="4361.50" step="0.01" class="w-full micro-input rounded-lg px-3 py-2 text-xs font-mono text-white">
+                        </div>
+                        <div class="col-span-1">
+                            <button type="button" onclick="calculateExecutionLot()" class="w-full bg-red-600 hover:bg-red-500 text-white text-xs font-bold rounded-lg px-3 py-2.5 transition-all shadow-[0_0_15px_rgba(239,68,68,0.3)]">
+                                Calculate Lot
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Output Results Bar -->
+                    <div id="lot-result-box" class="hidden mt-4 pt-4 border-t border-slate-800 grid grid-cols-3 gap-3">
+                        <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800 text-center">
+                            <span class="block text-[9px] font-bold text-slate-400 uppercase">Stop Distance</span>
+                            <span id="out-distance" class="block text-sm font-mono font-bold text-white mt-0.5">$0.00</span>
+                        </div>
+                        <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800 text-center">
+                            <span class="block text-[9px] font-bold text-slate-400 uppercase">Exact Risk</span>
+                            <span id="out-exact-risk" class="block text-sm font-mono font-bold text-white mt-0.5">$0.00</span>
+                        </div>
+                        <div class="bg-red-500/10 border border-red-500/30 p-2 rounded-xl text-center">
+                            <span class="block text-[9px] font-bold text-red-400 uppercase">MT5 Lot Size</span>
+                            <span id="out-lot-size" class="block text-xl font-mono font-black text-white drop-shadow-[0_0_10px_rgba(239,68,68,0.5)]">0.00</span>
+                        </div>
+                    </div>
+                </div>
                 <!-- Input Form -->
                 <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800 mb-6 space-y-3">
                     <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
@@ -1289,6 +1337,41 @@
                 localStorage.setItem('zenith_trades', JSON.stringify(tradesArray));
                 renderTrades();
             });
+        }
+        function calculateExecutionLot() {
+            const risk = parseFloat(document.getElementById('calc-risk').value) || 50;
+            const entry = parseFloat(document.getElementById('calc-entry').value);
+            const sl = parseFloat(document.getElementById('calc-sl').value);
+            
+            if (!entry || !sl) {
+                alert("Please enter both Entry and Stop Loss prices.");
+                return;
+            }
+            const distance = Math.abs(entry - sl);
+            if (distance === 0) {
+                alert("Entry and Stop Loss cannot be the same price.");
+                return;
+            }
+            
+            // Formula: Lot Size = Risk / (Distance * 100)
+            const rawLot = risk / (distance * 100);
+            const finalLot = Math.floor(rawLot * 100) / 100;
+            const exactRisk = finalLot * distance * 100;
+            
+            // Display Results
+            document.getElementById('out-distance').textContent = '$' + distance.toFixed(2);
+            document.getElementById('out-exact-risk').textContent = '$' + exactRisk.toFixed(2);
+            document.getElementById('out-lot-size').textContent = finalLot.toFixed(2);
+            
+            const resultBox = document.getElementById('lot-result-box');
+            resultBox.classList.remove('hidden');
+            resultBox.classList.add('grid');
+
+            // Auto-populate the Journal form fields directly below
+            const journalSize = document.getElementById('j-size');
+            const journalRisk = document.getElementById('j-risk');
+            if (journalSize) journalSize.value = finalLot.toFixed(2);
+            if (journalRisk) journalRisk.value = risk;
         }
 
         function logTrade() {
