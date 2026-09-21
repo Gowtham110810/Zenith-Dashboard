@@ -1005,13 +1005,27 @@
         <!-- ========================================== -->
         <!-- MODULE 09: ENHANCED ANALYTICS JOURNAL WITH CHARTS -->
         <!-- ========================================== -->
-        <section id="section-journal" class="space-y-6 reveal">
-            <div class="flex items-center justify-between">
+       <section id="section-journal" class="space-y-6 reveal">
+            <!-- FULL WIDTH FLEX CONTAINER -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 w-full">
+                
+                <!-- LEFT BLOCK: Titles and Text -->
                 <div>
                     <div class="section-badge border-blue-500/30 bg-blue-500/10 text-blue-300 mb-1">Module 09</div>
                     <h2 class="text-2xl md:text-3xl font-display font-bold text-white flex items-center gap-2"><span>📝</span> Advanced Analytics Journal</h2>
                     <p class="text-slate-400 text-sm mt-1">Dynamic trade logging with automatic R-Multiple tracking, Win Rate, and Chart Cloud Storage.</p>
                 </div>
+                
+                <!-- RIGHT BLOCK: The Button (Red Box Position) -->
+                <div>
+                    <button onclick="copyTradeReport()" id="report-btn" class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-[0_0_15px_rgba(37,99,235,0.4)] transition-all whitespace-nowrap">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        Copy AI Report
+                    </button>
+                </div>
+
+            </div>
+                
             </div>
 
             <!-- ANALYTICS DASHBOARD CARDS -->
@@ -1434,6 +1448,60 @@
                 rChart.data.labels = cLabels;
                 rChart.data.datasets[0].data = cData;
                 rChart.update();
+            }
+        }
+        function copyTradeReport() {
+            const btn = document.getElementById('report-btn');
+            if (tradesArray.length === 0) {
+                alert("No trades logged yet.");
+                return;
+            }
+
+            let wins = 0, totalR = 0, totalPnL = 0, rulesFollowed = 0;
+            const sortedTrades = [...tradesArray].sort((a, b) => a.timestamp - b.timestamp);
+            
+            let tradeList = "";
+            sortedTrades.forEach((t, i) => {
+                const risk = t.risk || 25;
+                const rValue = t.pnl / risk;
+                totalR += rValue;
+                totalPnL += t.pnl;
+                if (t.pnl > 0) wins++;
+                if (t.rules === 'Yes') rulesFollowed++;
+                
+                tradeList += `${i + 1}. **${t.date} | ${t.pair} (${t.direction})**\n`;
+                tradeList += `   - Setup: ${t.setup}\n`;
+                tradeList += `   - Risk: $${risk} | PnL: $${t.pnl.toFixed(2)} (${rValue > 0 ? '+' : ''}${rValue.toFixed(2)}R)\n`;
+                tradeList += `   - Rules Followed: ${t.rules}\n`;
+                if (t.imgUrl) tradeList += `   - Chart: ${t.imgUrl}\n`;
+                tradeList += "\n";
+            });
+
+            const winRate = Math.round((wins / sortedTrades.length) * 100);
+            const ruleRate = Math.round((rulesFollowed / sortedTrades.length) * 100);
+
+            let report = "### Project Zenith: Trade Execution Report\n\n";
+            report += "**Cumulative Performance Summary:**\n";
+            report += `- Total Executions: ${sortedTrades.length}\n`;
+            report += `- Win Rate: ${winRate}%\n`;
+            report += `- Rule Adherence: ${ruleRate}%\n`;
+            report += `- Total Net PnL: $${totalPnL.toFixed(2)}\n`;
+            report += `- Total R-Multiple: ${totalR > 0 ? '+' : ''}${totalR.toFixed(2)}R\n\n`;
+            report += "**Individual Trade Log:**\n\n";
+            report += tradeList;
+
+            // Copy to clipboard
+            if (navigator?.clipboard?.writeText) {
+                navigator.clipboard.writeText(report).then(() => {
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '<span>✅ Copied to Clipboard!</span>';
+                    setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                    alert("Clipboard copy failed. Check console.");
+                });
+            } else {
+                alert("Clipboard API not supported in this browser.");
             }
         }
 
